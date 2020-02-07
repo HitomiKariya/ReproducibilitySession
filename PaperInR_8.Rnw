@@ -234,7 +234,7 @@ I hope you like what you see in the Table \ref{regs}.
 
 %%% if you want to write a math formula in Latex, google it!
 $$ P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}} $$
-%%% Retreived from http://equplus.net/eqninfo/Equation-258.html
+% Retreived from http://equplus.net/eqninfo/Equation-258.html
 
 %%% don't use underline(_) on Latex. Will have an error.
 
