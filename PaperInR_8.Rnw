@@ -9,7 +9,6 @@
 
 \usepackage{adjustbox} 
 
-
 \title{My first replicable Paper}
 \author{
         MyFirstName MyLastName\\
@@ -230,6 +229,12 @@ stargazer(regre1,regre2,title = "Regression Models",label = 'regs')
 @
 
 I hope you like what you see in the Table \ref{regs}.
+
+%%% if you can't cite correctly, add .bib to the name of the reference{ } and run the document again 
+
+%%% if you want to write a math formula in Latex, google it!
+$$ P(x) = \frac{1}{{\sigma \sqrt {2\pi } }}e^{{{ - \left( {x - \mu } \right)^2 } \mathord{\left/ {\vphantom {{ - \left( {x - \mu } \right)^2 } {2\sigma ^2 }}} \right. \kern-\nulldelimiterspace} {2\sigma ^2 }}} $$
+%%% Retreived from http://equplus.net/eqninfo/Equation-258.html
 
 %%% don't use underline(_) on Latex. Will have an error.
 
