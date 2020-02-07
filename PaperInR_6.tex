@@ -1,9 +1,8 @@
-%%%%%% better tables
-% install in R: reporttools and stargazer
+% regresion report simple
 
 \documentclass[11pt]{article}
 
-\usepackage{longtable} % for tables
+\usepackage{longtable} 
 
 \usepackage{adjustbox} 
 
@@ -19,8 +18,10 @@
 \date{\today}
 
 
+
+\usepackage{Sweave}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\input{PaperInR_6-concordance}
 
 \maketitle 
 
@@ -29,7 +30,7 @@ This is an example on how to make a reproducible paper. We are using R from Rstu
 \end{abstract}
 
 
-\section{Introduction}\label{intro}
+\section{Introduction}\label{intro}  
 
 This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex.
 
@@ -50,12 +51,7 @@ Sections may use a label\footnote{In fact, you can have a label wherever you thi
 
 
 
-<<collecting, echo=FALSE>>=
-# collecting
-fileLink="https://github.com/eScienceUW-WinterSchool-2020/ReproducibilitySession/raw/master/data/dataidx.RDS"
-MyFile=url(fileLink)
-dataidx=readRDS(MyFile)
-@
+
 
 \subsection{Exploring Categorical Data}\label{catexplo}
 
@@ -63,47 +59,51 @@ Here, I continue doing this nice work, I hope you like it and read it. It has be
 
 You can see the statistics of categorical variables in Table \ref{catexplore_table}.
 
-%%%%%% LOADING LIBRARIES
+% latex table generated in R 3.6.2 by xtable 1.8-4 package
+% Fri Feb  7 12:00:33 2020
+\begingroup\normalsize
+\begin{longtable}{llrrr}
+\caption{Freq Table} \\ 
+ \textbf{Variable} & \textbf{Levels} & $\mathbf{n}$ & $\mathbf{\%}$ & $\mathbf{\sum \%}$ \\ 
+  \hline
+Region & Africa & 55 & 27.1 & 27.1 \\ 
+   & Asia & 45 & 22.2 & 49.3 \\ 
+   & Eurasia & 6 & 3.0 & 52.2 \\ 
+   & Europe & 45 & 22.2 & 74.4 \\ 
+   & NAmerica & 26 & 12.8 & 87.2 \\ 
+   & Oceania & 14 & 6.9 & 94.1 \\ 
+   & SAmerica & 12 & 5.9 & 100.0 \\ 
+   \hline
+ & all & 203 & 100.0 &  \\ 
+   \hline
+\hline
+ONIpolitical & nd & 2 & 2.6 & 2.6 \\ 
+   & per & 8 & 10.5 & 13.2 \\ 
+   & sub & 4 & 5.3 & 18.4 \\ 
+   & sel & 21 & 27.6 & 46.0 \\ 
+   & ne & 41 & 54.0 & 100.0 \\ 
+   \hline
+ & all & 76 & 100.0 &  \\ 
+   \hline
+\hline
+\hline
+\label{catexplore_table}
+\end{longtable}
+\endgroup
 
-<<libraries, echo=FALSE>>=
-library(reporttools) #A table format for categorical data (APA)
-library(stargazer) #A table for nomerical data (APA)
-@
 
-%%%%%% stats for categorical columns
-% table for categorical variables
-% USING "results=tex" 
-
-<<results=tex,echo=FALSE>>=
-tableNominal(vars =  dataidx[, c(2,5)], 
-             cap = "Freq Table", 
-             vertical = FALSE, 
-             lab ="catexplore_table",
-             caption.placement = "top",
-             font.size = "normalsize")
-@
 
 
 %%%%%%
 
 You can see this variable plotted in Figure \ref{catexplore_plot}
 
-<<cat_table, echo=FALSE>>=
-tableONI=as.data.frame(table(dataidx$ONIpolitical))
-names(tableONI)=c("var","count")
-##
-library(ggplot2)
-base=ggplot(data=tableONI,aes(x=var,y=count))
-bar1=base + geom_bar(stat = 'identity')
-@
 
 
 \begin{figure}[h]
 \centering
 \begin{adjustbox}{width=7cm,height=5cm}
-<<cat_plot, echo=FALSE, fig=TRUE>>=
-bar1
-@
+\includegraphics{PaperInR_6-cat_plot}
 \end{adjustbox}
 \caption{ONI barplot}  %title
 \label{catexplore_plot} % for \ref{}
@@ -117,41 +117,34 @@ bar1
 
 Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
-%%%%%% stats for numeric columns
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Fri, Feb 07, 2020 - 12:00:34
+\begin{table}[!htbp] \centering 
+  \caption{Stat summary for nummeric vars} 
+  \label{numexplore_table} 
+\footnotesize 
+\begin{tabular}{@{\extracolsep{5pt}}lccccccc} 
+\\[-1.8ex]\hline 
+\hline \\[-1.8ex] 
+Statistic & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max} & \multicolumn{1}{c}{Pctl(25)} & \multicolumn{1}{c}{Pctl(75)} & \multicolumn{1}{c}{St. Dev.} \\ 
+\hline \\[-1.8ex] 
+FHF & 49.00 & 47.24 & 10.00 & 97.00 & 25.25 & 63.00 & 23.72 \\ 
+RWB & 28.72 & 32.40 & 6.38 & 84.83 & 23.60 & 38.50 & 16.64 \\ 
+\hline \\[-1.8ex] 
+\end{tabular} 
+\end{table} 
+In the Table \ref{numexplore_table}, you realize that the mean of FHF is {\bf47.2424242424242}.
 
-<<summary, results=tex, echo=FALSE>>=
-stargazer(dataidx[,c(3,4)],
-          title = "Stat summary for nummeric vars", 
-          label = "numexplore_table",
-          font.size = 'footnotesize',
-          digits = 2,
-          summary.stat = c("median","mean","min",'max','p25','p75','sd'))
-@
-
-
-In the Table \ref{numexplore_table}, you realize that the mean of FHF is {\bf\Sexpr{round(mean(dataidx$FHF,na.rm = T),2)}}.
-
-
-<<num_table, echo=FALSE>>=
-base=ggplot(data=dataidx)
-box = base + geom_boxplot(aes(y=FHF,x=1)) 
-box = box + geom_boxplot(aes(y=RWB,x=2))
-box=box + scale_x_continuous(breaks = c(1,2),
-                             labels = names(dataidx[,c(3,4)]))
-@
 
 
 \begin{figure}[h]
 \centering
 \begin{adjustbox}{width=7cm,height=5.5cm,clip,trim=0cm 0.5cm 0cm 0cm} 
-<<num_plot, echo=FALSE, fig=TRUE>>=
-box +labs(x=NULL,y=NULL)
-@
+\includegraphics{PaperInR_6-num_plot}
 \end{adjustbox}
 \caption{boxplots}  
 \label{num_plot} 
 \end{figure}
-
 
 
 Boxplots were introduced by Tuckey (Tukey, John W (1977). Exploratory Data Analysis. Addison-Wesley.)
@@ -164,17 +157,11 @@ Here, I continue doing this nice work, I hope you like it and read it. It has be
 \subsection{Numerical and  Categorical}\label{binumcat}
 
 
-<<echo=FALSE>>=
-base=ggplot(dataidx,aes(y=FHF,x=Region))
-box=base + geom_boxplot() 
-@
 
 \begin{figure}[h]
 \centering
 \begin{adjustbox}{width=7cm,height=7cm} 
-<<numcat_plot, echo=FALSE, fig=TRUE>>=
-box + theme_minimal() + labs(title = "Is this right?")
-@
+\includegraphics{PaperInR_6-numcat_plot}
 \end{adjustbox}
 \caption{Boxplots: one numerical by a category.}  
 \label{numcat_plot} 
@@ -188,26 +175,64 @@ Here, I continue doing this nice work, I hope you like it and read it. It has be
 Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
 
-<<echo=FALSE>>=
-base=ggplot(data=dataidx,aes(x=FHF,y=RWB))
-points=base + geom_point()
-@
 
 
 \begin{figure}[h]
 \centering
 \begin{adjustbox}{width=7cm,height=5.5cm}
-<<numnum_plot, echo=FALSE, fig=TRUE>>=
-points 
-@
+\includegraphics{PaperInR_6-numnum_plot}
 \end{adjustbox}
 \caption{scatter}  
 \label{numnum_plot} 
 \end{figure}
 
 
+
 The scatter plot is thought to be invented by  John Frederick W. Herschel according to this link: https://qz.com/1235712/the-origins-of-the-scatter-plot-data-visualizations-greatest-invention/
 
+\section{My Regression}\label{regre}
 
+This is a Regression in R:
+
+\begin{Schunk}
+\begin{Sinput}
+> regre1=lm(FHF~RWB,data=dataidx)
+\end{Sinput}
+\end{Schunk}
+
+This is another:
+
+\begin{Schunk}
+\begin{Sinput}
+> regre2=lm(FHF~RWB+ONIpolitical,data=dataidx)
+\end{Sinput}
+\end{Schunk}
+
+These is the traditional summary for one:
+\begin{Schunk}
+\begin{Sinput}
+> summary(regre1)
+\end{Sinput}
+\begin{Soutput}
+Call:
+lm(formula = FHF ~ RWB, data = dataidx)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-23.504  -9.827  -1.899   8.849  25.100 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 11.10410    1.97922    5.61 7.71e-08 ***
+RWB          1.19844    0.05422   22.10  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 12.05 on 176 degrees of freedom
+  (25 observations deleted due to missingness)
+Multiple R-squared:  0.7352,	Adjusted R-squared:  0.7337 
+F-statistic: 488.6 on 1 and 176 DF,  p-value: < 2.2e-16
+\end{Soutput}
+\end{Schunk}
 
 \end{document}

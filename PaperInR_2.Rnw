@@ -47,7 +47,11 @@ Sections may use a label\footnote{In fact, you can have a label wherever you thi
 % this is a CODE CHUNK
 <<>>=
 # collecting
-fileLink="https://github.com/eScienceUW-WinterSchool-2020/ReproducibilitySession/raw/master/data/dataidx.RDS"
+fileLink="https://github.com/HitomiKariya/MyFirstRepo/raw/master/dataidx.RDS"
+# you need to copy the link from "download" button on the repo
+# right click on the "download" -> "Copy the link"
+# if you just copy the link on the google window, it won't work
+
 MyFile=url(fileLink)
 dataidx=readRDS(MyFile)
 

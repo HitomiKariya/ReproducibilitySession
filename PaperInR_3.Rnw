@@ -44,7 +44,7 @@ Sections may use a label\footnote{In fact, you can have a label wherever you thi
 
 % code chunk changes
 <<collecting, echo=FALSE>>=
-# collecting
+# collecting, don't show the code but run the code
 fileLink="https://github.com/eScienceUW-WinterSchool-2020/ReproducibilitySession/raw/master/data/dataidx.RDS"
 MyFile=url(fileLink)
 dataidx=readRDS(MyFile)
@@ -64,7 +64,7 @@ tableONI
 
 % code chunk changes
 <<cat_barplot, echo=FALSE, fig=TRUE>>=
-barplot(tableONI)
+barplot(tableONI) #don't show the code but show the figure
 @
 
 

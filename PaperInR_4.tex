@@ -1,11 +1,8 @@
-%%%%%% better tables
-% install in R: reporttools and stargazer
+%%%%%% better way to show plots
 
 \documentclass[11pt]{article}
 
-\usepackage{longtable} % for tables
-
-\usepackage{adjustbox} 
+\usepackage{adjustbox} % for size
 
 
 \title{My first replicable Paper}
@@ -19,8 +16,10 @@
 \date{\today}
 
 
+
+\usepackage{Sweave}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\input{PaperInR_4-concordance}
 
 \maketitle 
 
@@ -29,7 +28,8 @@ This is an example on how to make a reproducible paper. We are using R from Rstu
 \end{abstract}
 
 
-\section{Introduction}\label{intro}
+\section{Introduction}\label{intro}  
+
 
 This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex.
 
@@ -49,61 +49,22 @@ Sections may use a label\footnote{In fact, you can have a label wherever you thi
 
 
 
-
-<<collecting, echo=FALSE>>=
-# collecting
-fileLink="https://github.com/eScienceUW-WinterSchool-2020/ReproducibilitySession/raw/master/data/dataidx.RDS"
-MyFile=url(fileLink)
-dataidx=readRDS(MyFile)
-@
-
 \subsection{Exploring Categorical Data}\label{catexplo}
 
-Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
+Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
-You can see the statistics of categorical variables in Table \ref{catexplore_table}.
-
-%%%%%% LOADING LIBRARIES
-
-<<libraries, echo=FALSE>>=
-library(reporttools) #A table format for categorical data (APA)
-library(stargazer) #A table for nomerical data (APA)
-@
-
-%%%%%% stats for categorical columns
-% table for categorical variables
-% USING "results=tex" 
-
-<<results=tex,echo=FALSE>>=
-tableNominal(vars =  dataidx[, c(2,5)], 
-             cap = "Freq Table", 
-             vertical = FALSE, 
-             lab ="catexplore_table",
-             caption.placement = "top",
-             font.size = "normalsize")
-@
+%% preparing data to plot
 
 
-%%%%%%
+%using latex to show figure
+% using ajustbox
 
 You can see this variable plotted in Figure \ref{catexplore_plot}
-
-<<cat_table, echo=FALSE>>=
-tableONI=as.data.frame(table(dataidx$ONIpolitical))
-names(tableONI)=c("var","count")
-##
-library(ggplot2)
-base=ggplot(data=tableONI,aes(x=var,y=count))
-bar1=base + geom_bar(stat = 'identity')
-@
-
 
 \begin{figure}[h]
 \centering
 \begin{adjustbox}{width=7cm,height=5cm}
-<<cat_plot, echo=FALSE, fig=TRUE>>=
-bar1
-@
+\includegraphics{PaperInR_4-cat_plot}
 \end{adjustbox}
 \caption{ONI barplot}  %title
 \label{catexplore_plot} % for \ref{}
@@ -117,41 +78,34 @@ bar1
 
 Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
-%%%%%% stats for numeric columns
 
-<<summary, results=tex, echo=FALSE>>=
-stargazer(dataidx[,c(3,4)],
-          title = "Stat summary for nummeric vars", 
-          label = "numexplore_table",
-          font.size = 'footnotesize',
-          digits = 2,
-          summary.stat = c("median","mean","min",'max','p25','p75','sd'))
-@
+\begin{Schunk}
+\begin{Soutput}
+      FHF             RWB       
+ Min.   :10.00   Min.   : 6.38  
+ 1st Qu.:25.25   1st Qu.:23.60  
+ Median :49.00   Median :28.72  
+ Mean   :47.24   Mean   :32.40  
+ 3rd Qu.:63.00   3rd Qu.:38.50  
+ Max.   :97.00   Max.   :84.83  
+ NA's   :5       NA's   :23     
+\end{Soutput}
+\end{Schunk}
 
+%% preparing data to plot
 
-In the Table \ref{numexplore_table}, you realize that the mean of FHF is {\bf\Sexpr{round(mean(dataidx$FHF,na.rm = T),2)}}.
-
-
-<<num_table, echo=FALSE>>=
-base=ggplot(data=dataidx)
-box = base + geom_boxplot(aes(y=FHF,x=1)) 
-box = box + geom_boxplot(aes(y=RWB,x=2))
-box=box + scale_x_continuous(breaks = c(1,2),
-                             labels = names(dataidx[,c(3,4)]))
-@
-
+%using latex to show figure
+% using ajustbox
+% clipping/trimming
 
 \begin{figure}[h]
 \centering
-\begin{adjustbox}{width=7cm,height=5.5cm,clip,trim=0cm 0.5cm 0cm 0cm} 
-<<num_plot, echo=FALSE, fig=TRUE>>=
-box +labs(x=NULL,y=NULL)
-@
+\begin{adjustbox}{width=7cm,height=5.5cm,clip,trim=0cm 0.5cm 0cm 0cm} %trimmimg: left,bottom, right,top
+\includegraphics{PaperInR_4-num_plot}
 \end{adjustbox}
 \caption{boxplots}  
 \label{num_plot} 
 \end{figure}
-
 
 
 Boxplots were introduced by Tuckey (Tukey, John W (1977). Exploratory Data Analysis. Addison-Wesley.)
@@ -163,18 +117,13 @@ Here, I continue doing this nice work, I hope you like it and read it. It has be
 
 \subsection{Numerical and  Categorical}\label{binumcat}
 
+%% preparing data to plot
 
-<<echo=FALSE>>=
-base=ggplot(dataidx,aes(y=FHF,x=Region))
-box=base + geom_boxplot() 
-@
-
+%plotting
 \begin{figure}[h]
 \centering
 \begin{adjustbox}{width=7cm,height=7cm} 
-<<numcat_plot, echo=FALSE, fig=TRUE>>=
-box + theme_minimal() + labs(title = "Is this right?")
-@
+\includegraphics{PaperInR_4-numcat_plot}
 \end{adjustbox}
 \caption{Boxplots: one numerical by a category.}  
 \label{numcat_plot} 
@@ -187,21 +136,15 @@ Here, I continue doing this nice work, I hope you like it and read it. It has be
 
 Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
-
-<<echo=FALSE>>=
-base=ggplot(data=dataidx,aes(x=FHF,y=RWB))
-points=base + geom_point()
-@
+%preparing data to plot
 
 
 \begin{figure}[h]
 \centering
 \begin{adjustbox}{width=7cm,height=5.5cm}
-<<numnum_plot, echo=FALSE, fig=TRUE>>=
-points 
-@
+\includegraphics{PaperInR_4-numnum_plot}
 \end{adjustbox}
-\caption{scatter}  
+\caption{boxplots}  
 \label{numnum_plot} 
 \end{figure}
 

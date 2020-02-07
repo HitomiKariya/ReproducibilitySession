@@ -6,11 +6,11 @@
 
 \title{My first replicable Paper}
 \author{
-        MyFirstName MyLastName\\
-        Evans School of Public Policy and Governance\\
+        Hitomi Kariya\\
+        School of Public Health\\
         University of Washington\\
         Seattle, WA 98115, \underline{United States}\\
-        \texttt{greatguy@uw.edu}
+        \texttt{hitomik@uw.edu}
 }
 \date{\today}
 

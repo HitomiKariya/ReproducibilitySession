@@ -1,11 +1,6 @@
-%%%%%% better tables
-% install in R: reporttools and stargazer
+%% loading data to do basic R
 
 \documentclass[11pt]{article}
-
-\usepackage{longtable} % for tables
-
-\usepackage{adjustbox} 
 
 
 \title{My first replicable Paper}
@@ -19,8 +14,9 @@
 \date{\today}
 
 
+\usepackage{Sweave}
 \begin{document}
-\SweaveOpts{concordance=TRUE}
+\input{PaperInR_2-concordance}
 
 \maketitle 
 
@@ -29,7 +25,7 @@ This is an example on how to make a reproducible paper. We are using R from Rstu
 \end{abstract}
 
 
-\section{Introduction}\label{intro}
+\section{Introduction}\label{intro}  
 
 This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex. This is my intro to my great paper, I will explain the cool things I can do with my new `computational thinking' powers combined with some Latex.
 
@@ -47,69 +43,44 @@ combined with some Latex.
 Sections may use a label\footnote{In fact, you can have a label wherever you think a future reference to that content might be needed.}. This label is needed for referencing. For example the next section has label \emph{datas}, so you can reference it by writing: As we see in section \ref{catexplo}.
 
 
+%%%%%% code for loading here
 
-
-
-<<collecting, echo=FALSE>>=
-# collecting
-fileLink="https://github.com/eScienceUW-WinterSchool-2020/ReproducibilitySession/raw/master/data/dataidx.RDS"
-MyFile=url(fileLink)
-dataidx=readRDS(MyFile)
-@
+% this is a CODE CHUNK
+\begin{Schunk}
+\begin{Sinput}
+> # collecting
+> fileLink="https://github.com/HitomiKariya/MyFirstRepo/raw/master/dataidx.RDS"
+> # you need to copy the link from "download" button on the repo
+> # right click on the "download" -> "Copy the link"
+> # if you just copy the link on the google window, it won't work
+> 
+> MyFile=url(fileLink)
+> dataidx=readRDS(MyFile)
+> 
+\end{Sinput}
+\end{Schunk}
 
 \subsection{Exploring Categorical Data}\label{catexplo}
 
-Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
+Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
-You can see the statistics of categorical variables in Table \ref{catexplore_table}.
+%%%%%% code for exploring here
+\begin{Schunk}
+\begin{Sinput}
+> tableONI=table(dataidx$ONIpolitical)
+> tableONI
+\end{Sinput}
+\begin{Soutput}
+ nd per sub sel  ne 
+  2   8   4  21  41 
+\end{Soutput}
+\end{Schunk}
 
-%%%%%% LOADING LIBRARIES
-
-<<libraries, echo=FALSE>>=
-library(reporttools) #A table format for categorical data (APA)
-library(stargazer) #A table for nomerical data (APA)
-@
-
-%%%%%% stats for categorical columns
-% table for categorical variables
-% USING "results=tex" 
-
-<<results=tex,echo=FALSE>>=
-tableNominal(vars =  dataidx[, c(2,5)], 
-             cap = "Freq Table", 
-             vertical = FALSE, 
-             lab ="catexplore_table",
-             caption.placement = "top",
-             font.size = "normalsize")
-@
-
-
-%%%%%%
-
-You can see this variable plotted in Figure \ref{catexplore_plot}
-
-<<cat_table, echo=FALSE>>=
-tableONI=as.data.frame(table(dataidx$ONIpolitical))
-names(tableONI)=c("var","count")
-##
-library(ggplot2)
-base=ggplot(data=tableONI,aes(x=var,y=count))
-bar1=base + geom_bar(stat = 'identity')
-@
-
-
-\begin{figure}[h]
-\centering
-\begin{adjustbox}{width=7cm,height=5cm}
-<<cat_plot, echo=FALSE, fig=TRUE>>=
-bar1
-@
-\end{adjustbox}
-\caption{ONI barplot}  %title
-\label{catexplore_plot} % for \ref{}
-\end{figure}
-
-
+\begin{Schunk}
+\begin{Sinput}
+> barplot(tableONI)
+\end{Sinput}
+\end{Schunk}
 
 
 
@@ -117,42 +88,29 @@ bar1
 
 Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
-%%%%%% stats for numeric columns
-
-<<summary, results=tex, echo=FALSE>>=
-stargazer(dataidx[,c(3,4)],
-          title = "Stat summary for nummeric vars", 
-          label = "numexplore_table",
-          font.size = 'footnotesize',
-          digits = 2,
-          summary.stat = c("median","mean","min",'max','p25','p75','sd'))
-@
-
-
-In the Table \ref{numexplore_table}, you realize that the mean of FHF is {\bf\Sexpr{round(mean(dataidx$FHF,na.rm = T),2)}}.
-
-
-<<num_table, echo=FALSE>>=
-base=ggplot(data=dataidx)
-box = base + geom_boxplot(aes(y=FHF,x=1)) 
-box = box + geom_boxplot(aes(y=RWB,x=2))
-box=box + scale_x_continuous(breaks = c(1,2),
-                             labels = names(dataidx[,c(3,4)]))
-@
+%%%%%% code for exploring here
+\begin{Schunk}
+\begin{Sinput}
+> summary(dataidx[,c(3,4)])
+\end{Sinput}
+\begin{Soutput}
+      FHF             RWB       
+ Min.   :10.00   Min.   : 6.38  
+ 1st Qu.:25.25   1st Qu.:23.60  
+ Median :49.00   Median :28.72  
+ Mean   :47.24   Mean   :32.40  
+ 3rd Qu.:63.00   3rd Qu.:38.50  
+ Max.   :97.00   Max.   :84.83  
+ NA's   :5       NA's   :23     
+\end{Soutput}
+\end{Schunk}
 
 
-\begin{figure}[h]
-\centering
-\begin{adjustbox}{width=7cm,height=5.5cm,clip,trim=0cm 0.5cm 0cm 0cm} 
-<<num_plot, echo=FALSE, fig=TRUE>>=
-box +labs(x=NULL,y=NULL)
-@
-\end{adjustbox}
-\caption{boxplots}  
-\label{num_plot} 
-\end{figure}
-
-
+\begin{Schunk}
+\begin{Sinput}
+> boxplot(dataidx[,c(3,4)])
+\end{Sinput}
+\end{Schunk}
 
 Boxplots were introduced by Tuckey (Tukey, John W (1977). Exploratory Data Analysis. Addison-Wesley.)
 
@@ -163,48 +121,24 @@ Here, I continue doing this nice work, I hope you like it and read it. It has be
 
 \subsection{Numerical and  Categorical}\label{binumcat}
 
-
-<<echo=FALSE>>=
-base=ggplot(dataidx,aes(y=FHF,x=Region))
-box=base + geom_boxplot() 
-@
-
-\begin{figure}[h]
-\centering
-\begin{adjustbox}{width=7cm,height=7cm} 
-<<numcat_plot, echo=FALSE, fig=TRUE>>=
-box + theme_minimal() + labs(title = "Is this right?")
-@
-\end{adjustbox}
-\caption{Boxplots: one numerical by a category.}  
-\label{numcat_plot} 
-\end{figure}
-
+%%%%%% code for exploring here
+\begin{Schunk}
+\begin{Sinput}
+> boxplot(dataidx$FHF~dataidx$Region)
+\end{Sinput}
+\end{Schunk}
 
 Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
 
 \subsection{Numerical and Numerical}\label{binumnum}
 
 Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.Here, I continue doing this nice work, I hope you like it and read it. It has been a very hard work.
-
-
-<<echo=FALSE>>=
-base=ggplot(data=dataidx,aes(x=FHF,y=RWB))
-points=base + geom_point()
-@
-
-
-\begin{figure}[h]
-\centering
-\begin{adjustbox}{width=7cm,height=5.5cm}
-<<numnum_plot, echo=FALSE, fig=TRUE>>=
-points 
-@
-\end{adjustbox}
-\caption{scatter}  
-\label{numnum_plot} 
-\end{figure}
-
+%%%%%% code for exploring here
+\begin{Schunk}
+\begin{Sinput}
+> plot(dataidx$FHF~dataidx$RWB)
+\end{Sinput}
+\end{Schunk}
 
 The scatter plot is thought to be invented by  John Frederick W. Herschel according to this link: https://qz.com/1235712/the-origins-of-the-scatter-plot-data-visualizations-greatest-invention/
 
